@@ -1,10 +1,11 @@
 <template>
   <Register/>
+  <!-- <router-view></router-view> -->
 </template>
 
 <script>
 
-import Register from './components/Register/Register'
+import Register from './components/Register/Register';
 
 export default {
   name: 'App',
