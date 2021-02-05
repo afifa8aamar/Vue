@@ -32,6 +32,7 @@
           type="text" 
           placeholder="შეიყვანეთ პირადობის ნომერი" 
           v-model="userId" 
+          @keyup="deleteError"
           name="userId" 
           id="userId" >
       </div>
@@ -66,8 +67,23 @@ export default {
   }),
   methods : {
     register() {
-      if(this.userId.toString().length != 11 || /^\d+$/.test(this))
-        this.error ='გთხოვთ შეიყვანეთ ვალიდური პირადი ნომერი'
+      // if(this.userId.toString().length != 11 || /^\d+$/.test(this)) {
+      if(this.userId.toString().length != 11 ) {
+        this.error ='გთხოვთ შეიყვანეთ ვალიდური პირადი ნომერი';
+        this.userId = '';
+      } else {
+        this.$store.dispatch("setUser",{
+          name: this.name,
+          surname: this.surname,
+          userId: this.userId,
+          date: this.date,
+          gender: this.gender,
+        })
+        this.$router.push('/Dashboard')
+      }
+    },
+    deleteError() {
+      this.error = ''
     }
   },
 }
